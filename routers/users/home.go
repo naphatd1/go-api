@@ -1,19 +1,14 @@
 package users
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	usercontroller "github.com/naphat/gob-api/controllers/user"
+)
 
 func InitUsersRoutes(rg *gin.RouterGroup) {
 	routerGroup := rg.Group("/users")
 
-	routerGroup.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"data": "users",
-		})
-	})
+	routerGroup.GET("/", usercontroller.GetAll)
 
-	routerGroup.POST("/register", func(c *gin.Context) {
-		c.JSON(201, gin.H{
-			"data": "register",
-		})
-	})
+	routerGroup.POST("/register", usercontroller.Register)
 }
