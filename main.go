@@ -8,6 +8,7 @@ import (
 	"github.com/joho/godotenv"
 	v1 "github.com/naphat/gob-api/routers/v1"
 	v2 "github.com/naphat/gob-api/routers/v2"
+	users "github.com/naphat/gob-api/routers/users"
 )
 
 func main() {
@@ -24,9 +25,10 @@ func SetupRouter() *gin.Engine {
 
 	apiV1 := router.Group("/api/v1")
 	apiV2 := router.Group("/api/v2")
-
+	user := router.Group("/api")
 
 	v1.InitHomeRoutesV1(apiV1)
 	v2.InitHomeRoutesV2(apiV2)
+	users.InitUsersRoutes(user)
 	return router
 }
