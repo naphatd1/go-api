@@ -9,6 +9,7 @@ func GetAll(c *gin.Context) {
 }
 
 func Register(c *gin.Context) {
+	
 	c.JSON(201, gin.H{
 		"data": "register",
 	})
