@@ -8,6 +8,6 @@ type User struct {
 	Email    string `gorm:"type:varchar(255);not null;unique"`
 	Password string `gorm:"type:varchar(255);not null"`
 	IsAdmin  bool   `gorm:"type:bool;default:false"`
-	CreateAt time.Time
-	UpdateAt time.Time
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }

@@ -1,6 +1,12 @@
 package usercontroller
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+	"github.com/naphat/gob-api/configs"
+	"github.com/naphat/gob-api/models"
+)
 
 func GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
@@ -9,9 +15,30 @@ func GetAll(c *gin.Context) {
 }
 
 func Register(c *gin.Context) {
-	
+	var input InputRegister
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	user := models.User{
+		Fullname: input.Fullname,
+		Email:    input.Email,
+		Password: input.Password,
+	}
+
+	result := configs.DB.Debug().Create(&user)
+
+	//เช็คอีเมล์ซ้ำ
+	// userExist :=
+
+	if result.Error != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"Error": result.Error})
+		return
+	}
+
 	c.JSON(201, gin.H{
-		"data": "register",
+		"message": "สมัครสมาชิกสำเร็จ",
 	})
 }
 

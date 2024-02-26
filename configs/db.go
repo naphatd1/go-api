@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/naphat/gob-api/models"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -14,7 +14,8 @@ var DB *gorm.DB
 func Connection() {
 	dsn := os.Getenv("DATABASE_DSN")
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	// db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		fmt.Println("ไม่สามารถติดต่อกับ Database Server ได้")
