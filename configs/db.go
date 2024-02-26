@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/naphat/gob-api/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -22,6 +23,10 @@ func Connection() {
 	}
 
 	fmt.Println("ติดต่อฐานข้อมูลสำเร็จ")
+
+	// Migration
+	// db.Migrator().DropTable(&models.User{})
+	db.AutoMigrate(&models.User{})
 
 	DB = db
 
