@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/naphat/gob-api/configs"
@@ -25,6 +26,14 @@ func SetupRouter() *gin.Engine {
 	router := gin.Default()
 
 	configs.Connection()
+
+	router.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"*"},
+		AllowHeaders:     []string{"*"},
+		ExposeHeaders:    []string{"*"},
+		AllowCredentials: true,
+	}))
 
 	apiV1 := router.Group("/api/v1")
 	apiV2 := router.Group("/api/v2")
